@@ -69,3 +69,4 @@ public class TradeJournalAnalyzer {
 
         scanner.close();
     }
+}
