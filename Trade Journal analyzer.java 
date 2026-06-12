@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class TradeJournalAnalyzer {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("===== TRADE JOURNAL ANALYZER =====");
+
+        System.out.print("Enter the number of trades: ");
+        int totalTrades = scanner.nextInt();
+
+        int winningTrades = 0;
+        int losingTrades = 0;
+        double totalProfitLoss = 0;
+
+        for (int i = 1; i <= totalTrades; i++) {
+
+            System.out.println("\nTrade #" + i);
+
+            System.out.print("Entry Price: ");
+            double entryPrice = scanner.nextDouble();
+
+            System.out.print("Exit Price: ");
+            double exitPrice = scanner.nextDouble();
+
+            System.out.print("Quantity: ");
+            int quantity = scanner.nextInt();
+
+            double profitLoss = (exitPrice - entryPrice) * quantity;
+
+            System.out.printf("Trade P/L: %.2f%n", profitLoss);
+
+            totalProfitLoss += profitLoss;
+
+            if (profitLoss > 0) {
+                winningTrades++;
+            } else if (profitLoss < 0) {
+                losingTrades++;
+            }
+        }
+
+        double winRate = 0;
+        if (totalTrades > 0) {
+            winRate = (double) winningTrades / totalTrades * 100;
+        }
+
+        double averagePL = 0;
+        if (totalTrades > 0) {
+            averagePL = totalProfitLoss / totalTrades;
+        }
+
+        System.out.println("\n========== ANALYSIS REPORT ==========");
+        System.out.println("Total Trades      : " + totalTrades);
+        System.out.println("Winning Trades    : " + winningTrades);
+        System.out.println("Losing Trades     : " + losingTrades);
+        System.out.printf("Win Rate          : %.2f%%%n", winRate);
+        System.out.printf("Total Profit/Loss : %.2f%n", totalProfitLoss);
+        System.out.printf("Average P/L       : %.2f%n", averagePL);
+
+        if (totalProfitLoss > 0) {
+            System.out.println("Performance Status: PROFITABLE");
+        } else if (totalProfitLoss < 0) {
+            System.out.println("Performance Status: LOSS");
+        } else {
+            System.out.println("Performance Status: BREAK-EVEN");
+        }
+
+        scanner.close();
+    }
+}
