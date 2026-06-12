@@ -1,6 +1,54 @@
+import java.util.Scanner;
 
-# .v4p backup files
-*~.xml
+public class TradeJournalAnalyzer {
 
-# Dynamic plugins .dll
-bin/
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of trades: ");
+        int n = sc.nextInt();
+
+        double totalPL = 0;
+        int wins = 0;
+        int losses = 0;
+
+        for (int i = 1; i <= n; i++) {
+
+            System.out.println("\nTrade " + i);
+
+            System.out.print("Entry Price: ");
+            double entryPrice = sc.nextDouble();
+
+            System.out.print("Exit Price: ");
+            double exitPrice = sc.nextDouble();
+
+            System.out.print("Quantity: ");
+            int quantity = sc.nextInt();
+
+            double profitLoss = (exitPrice - entryPrice) * quantity;
+
+            System.out.println("Profit/Loss: " + profitLoss);
+
+            totalPL += profitLoss;
+
+            if (profitLoss > 0)
+                wins++;
+            else if (profitLoss < 0)
+                losses++;
+        }
+
+        double winRate = ((double) wins / n) * 100;
+        double avgPL = totalPL / n;
+
+        System.out.println("\n===== TRADE JOURNAL REPORT =====");
+        System.out.println("Total Trades      : " + n);
+        System.out.println("Winning Trades    : " + wins);
+        System.out.println("Losing Trades     : " + losses);
+        System.out.println("Win Rate          : " + String.format("%.2f", winRate) + "%");
+        System.out.println("Total Profit/Loss : " + String.format("%.2f", totalPL));
+        System.out.println("Average P/L       : " + String.format("%.2f", avgPL));
+
+        sc.close();
+    }
+}
